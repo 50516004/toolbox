@@ -56,9 +56,9 @@ export default function Page() {
             {button("6")}
           </div>
           <div className="flex gap-2">
-            {button("+")}
-            {button("-")}
-            {button("x")}
+            {button("7")}
+            {button("8")}
+            {button("9")}
           </div>
           <div className="flex gap-2">
             {button("0")}

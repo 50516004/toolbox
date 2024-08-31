@@ -1,7 +1,7 @@
 {
-  "name": "My Next.js Application",
-  "short_name": "Next.js App",
-  "description": "An application built with Next.js",
+  "name": "電卓",
+  "short_name": "電卓",
+  "description": "電卓 built with Next.js",
   "start_url": "/",
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
