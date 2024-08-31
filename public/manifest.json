@@ -6,12 +6,11 @@
   "theme_color": "#FFFFFF",
   "background_color": "#FFFFFF",
   "display": "standalone",
-  "orientation": "portrait",
   "icons": [
     {
-      "sizes": "196x196",
-      "src": "favicon.ico",
-      "type": "image/ico"
+      "sizes": "256x256",
+      "src": "icon.png",
+      "type": "image/png"
     }
   ]
 }
