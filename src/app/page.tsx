@@ -1,5 +1,5 @@
 'use client'
-import { calcAll } from "@/lib/calculator";
+import { calcAll, isOP } from "@/lib/calculator";
 import Button from "@/ui/Button";
 import { useState } from "react";
 
@@ -7,27 +7,63 @@ export default function Page() {
   const [queue, setQueue] = useState<string[]>([]);
   const [answer, setAnswer] = useState(0);
 
-  const state = queue.join(" ");
+  // 更新用キュー
+  const updater = [...queue];
 
-  function push(s: string) {
-    const nextState = [...queue, s];
-    setQueue(nextState);
+  // 数字の入力
+  function inputNumber(num: string) {
+    const tail = updater.at(-1);
+    if(tail == undefined || isOP(tail)) {
+      updater.push(num);
+    } else {
+      updater.pop();
+      updater.push(tail + num);
+    }
+    setQueue(updater);
   }
 
-  function calc() {
+  // 演算子の入力
+  function inputOP(op: string) {
+    const tail = updater.at(-1);
+    if (tail == undefined) {
+      updater.push("0");
+      updater.push(op);
+    } else if (isOP(tail)) {
+      updater.pop();
+      updater.push(op);
+    } else {
+      updater.push(op);
+    }
+    setQueue(updater);
+  }
+
+  // 計算
+  function enter() {
     setAnswer(calcAll(queue));
   }
 
+  // リセット
   function reset() {
     setQueue([]);
     setAnswer(0);
   }
 
-  function button(s: string) {
+  // 数字ボタン
+  function btnNumber(s: string) {
     return (
-      <Button handler={() => push(s)}>{s}</Button>
+      <Button handler={() => inputNumber(s)}>{s}</Button>
     );
   }
+
+  // 演算子ボタン
+  function btnOperator(s: string) {
+    return (
+      <Button handler={() => inputOP(s)}>{s}</Button>
+    );
+  }
+
+  // 計算式の表示
+  const state = queue.join(" ");
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
@@ -40,30 +76,30 @@ export default function Page() {
         </div>
         <div className="flex flex-wrap flex-col gap-2">
           <div className="flex gap-2">
-            {button("+")}
-            {button("-")}
-            {button("x")}
-            {button("÷")}
+            {btnOperator("+")}
+            {btnOperator("-")}
+            {btnOperator("x")}
+            {btnOperator("÷")}
           </div>
           <div className="flex gap-2">
-            {button("1")}
-            {button("2")}
-            {button("3")}
+            {btnNumber("1")}
+            {btnNumber("2")}
+            {btnNumber("3")}
           </div>
           <div className="flex gap-2">
-            {button("4")}
-            {button("5")}
-            {button("6")}
+            {btnNumber("4")}
+            {btnNumber("5")}
+            {btnNumber("6")}
           </div>
           <div className="flex gap-2">
-            {button("7")}
-            {button("8")}
-            {button("9")}
+            {btnNumber("7")}
+            {btnNumber("8")}
+            {btnNumber("9")}
           </div>
           <div className="flex gap-2">
-            {button("0")}
-            {button(".")}
-            <Button handler={calc}>{"="}</Button>
+            {btnNumber("0")}
+            {btnNumber(".")}
+            <Button handler={enter}>{"="}</Button>
             <Button handler={reset}>{"C"}</Button>
           </div>
         </div>
