@@ -4,17 +4,25 @@ import { Operator, Point } from "@/lib/difinitions";
 import Button from "@/ui/Button";
 import { useState } from "react";
 
+// 入力初期状態
+const initInput = ["0"];
+
 export default function Page() {
   // 入力配列
-  const [input, setInput] = useState(["0"]);
+  const [input, setInput] = useState(initInput);
+  
   // 入力配列のコピー
   const draft = [...input];
   // 入力末尾
-  const tail = draft.at(-1);
+  const tail = input.at(-1);
+  // 計算式
+  const state = input.join(" ");
+  // 計算結果
+  const answer = resolveAll(input);
 
   // 入力配列のクリア
   function clear() {
-    setInput(["0"]);
+    setInput(initInput);
   }
 
   // 演算子を追加
@@ -60,11 +68,6 @@ export default function Page() {
       </Button>
     );
   }
-
-  // 計算式
-  const state = input.join(" ");
-  // 計算結果
-  const answer = resolveAll(input);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-10 text-xl">
