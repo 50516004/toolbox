@@ -1,106 +1,100 @@
 'use client'
-import { calcAll, isOP } from "@/lib/calculator";
+import { isOperator, resolveAll } from "@/lib/calculator";
+import { Divid, Minus, Multi, Plus, Point } from "@/lib/difinitions";
 import Button from "@/ui/Button";
 import { useState } from "react";
 
 export default function Page() {
-  const [queue, setQueue] = useState<string[]>([]);
-  const [answer, setAnswer] = useState(0);
+  // 入力配列
+  const [input, setInput] = useState(["0"]);
+  // 入力配列のコピー
+  const draft = [...input];
 
-  // 更新用キュー
-  const updater = [...queue];
-
-  // 数字の入力
-  function inputNumber(num: string) {
-    const tail = updater.at(-1);
-    if(tail == undefined || isOP(tail)) {
-      updater.push(num);
-    } else {
-      updater.pop();
-      updater.push(tail + num);
-    }
-    setQueue(updater);
+  // 入力配列のクリア
+  function clear() {
+    setInput(["0"]);
   }
 
-  // 演算子の入力
-  function inputOP(op: string) {
-    const tail = updater.at(-1);
+  // 演算子を追加
+  function addOperator(op: string) {
+    const tail = draft.at(-1);
     if (tail == undefined) {
-      updater.push("0");
-      updater.push(op);
-    } else if (isOP(tail)) {
-      updater.pop();
-      updater.push(op);
+      draft.push(op);
+    } else if (isOperator(tail)) {
+      draft.splice(-1, 1, op);
     } else {
-      updater.push(op);
+      draft.push(op);
     }
-    setQueue(updater);
+    setInput(draft);
   }
 
-  // 計算
-  function enter() {
-    setAnswer(calcAll(queue));
+  // 数字を追加
+  function addNumber(num: number) {
+    const tail = draft.at(-1);
+    const numStr = num.toString();
+    if (tail == undefined || isOperator(tail)) {
+      draft.push(numStr);
+    } else if (tail == "0") {
+      draft.splice(-1, 1, numStr);
+    } else {
+      draft.splice(-1, 1, tail + numStr);
+    }
+    setInput(draft);
   }
 
-  // リセット
-  function reset() {
-    setQueue([]);
-    setAnswer(0);
+  // 小数点を追加
+  function addPoint() {
+    const tail = draft.at(-1);
+    if (tail == undefined || isOperator(tail) || tail.includes(Point)) {
+      return;
+    } else {
+      draft.splice(-1, 1, tail + Point);
+    }
+    setInput(draft);
   }
 
   // 数字ボタン
-  function btnNumber(s: string) {
+  function btnNumber(num: number) {
     return (
-      <Button handler={() => inputNumber(s)}>{s}</Button>
+      <Button onClick={() => addNumber(num)}>{num}</Button>
     );
   }
 
-  // 演算子ボタン
-  function btnOperator(s: string) {
-    return (
-      <Button handler={() => inputOP(s)}>{s}</Button>
-    );
-  }
-
-  // 計算式の表示
-  const state = queue.join(" ");
+  // 計算式
+  const state = input.join(" ");
+  // 計算結果
+  const answer = resolveAll(input);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
-      <div className="bg-white p-5 flex flex-col gap-2 w-60">
-        <div className="flex justify-end">
-          {state}
-        </div>
-        <div className="border border-gray-500 flex justify-end p-2">
-          {answer}
+      <div className="bg-white p-5 flex flex-col gap-2 w-50 rounded-md">
+        <div className="h-10 border border-gray-500 flex justify-end p-2">
+          {state + " = " + answer}
         </div>
         <div className="flex flex-wrap flex-col gap-2">
           <div className="flex gap-2">
-            {btnOperator("+")}
-            {btnOperator("-")}
-            {btnOperator("x")}
-            {btnOperator("÷")}
+            <Button onClick={() => addOperator(Plus)}>&#0043;</Button>
+            <Button onClick={() => addOperator(Minus)}>&#8722;</Button>
+            <Button onClick={() => addOperator(Multi)}>&#0215;</Button>
+            <Button onClick={() => addOperator(Divid)}>&#0247;</Button>
           </div>
           <div className="flex gap-2">
-            {btnNumber("1")}
-            {btnNumber("2")}
-            {btnNumber("3")}
+            {btnNumber(7)}
+            {btnNumber(8)}
+            {btnNumber(9)}
+            {btnNumber(0)}
           </div>
           <div className="flex gap-2">
-            {btnNumber("4")}
-            {btnNumber("5")}
-            {btnNumber("6")}
+            {btnNumber(4)}
+            {btnNumber(5)}
+            {btnNumber(6)}
+            <Button onClick={addPoint}>{"."}</Button>
           </div>
           <div className="flex gap-2">
-            {btnNumber("7")}
-            {btnNumber("8")}
-            {btnNumber("9")}
-          </div>
-          <div className="flex gap-2">
-            {btnNumber("0")}
-            {btnNumber(".")}
-            <Button handler={enter}>{"="}</Button>
-            <Button handler={reset}>{"C"}</Button>
+            {btnNumber(1)}
+            {btnNumber(2)}
+            {btnNumber(3)}
+            <Button onClick={clear}>{"C"}</Button>
           </div>
         </div>
       </div>

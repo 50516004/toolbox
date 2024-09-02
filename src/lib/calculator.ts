@@ -1,23 +1,48 @@
+import { Divid, Minus, Multi, Plus } from "./difinitions";
+
 /**
- * 入力キューから答えを計算する
- * @param queue 入力キュー
- * @returns 答え
+ * 入力配列から解を計算する
+ * @param input 入力配列
+ * @returns 解
  */
-export function calcAll(queue: string[]) {
-  const list = [...queue];
+export function resolveAll(input: string[]) {
+  // 入力配列をコピー
+  const draft = [...input];
 
-  let i = list.findIndex(isOP);
-  while (i != -1) {
-    const op = list[i];
-    const s1 = list[i-1];
-    const s2 = list[i+1];
-    const reduce = calc(op, s1, s2);
+  // 演算子の位置を探す
+  let pos = findOperator(draft);
+  while (pos != -1) {
+    // 演算子と前後の数字から解を算出
+    const op = draft[pos];
+    const s1 = draft[pos-1];
+    const s2 = draft[pos+1];
+    const reduced = resolve(op, s1, s2);
 
-    list.splice(i-1, 3, reduce.toString());
-    i = list.findIndex(isOP);
+    // 演算子と数字2つを解に置き換える
+    draft.splice(pos-1, 3, reduced.toString());
+
+    // 次の演算子の位置を探す
+    pos = findOperator(draft);
   }
 
-  return parseFloat(list[0]);
+  // 最終的に残った要素を解とする
+  return parseFloat(draft[0]);
+}
+
+/**
+ * 入力配列から演算子を探す
+ * @param input 入力配列
+ * @returns 演算子の位置
+ */
+export function findOperator(input: string[]) {
+  // 掛け算割り算を検索
+  const posMulDiv = input.findIndex(s => s == Multi || s == Divid);
+  if(posMulDiv != -1) { 
+    return posMulDiv;
+  }
+  // 足し算引き算を検索
+  const posAddSub = input.findIndex(s => s == Plus || s == Minus);
+  return posAddSub;
 }
 
 /**
@@ -27,15 +52,15 @@ export function calcAll(queue: string[]) {
  * @param s2 数字2
  * @returns 答え
  */
-export function calc(op: string, s1: string, s2: string) {
+export function resolve(op: string, s1: string, s2: string) {
   const n1 = parseFloat(s1);
   const n2 = parseFloat(s2);
 
   switch (op) {
-    case "+": return n1 + n2;
-    case "-": return n1 - n2;
-    case "x": return n1 * n2;
-    case "÷": return n1 / n2;
+    case Plus: return n1 + n2;
+    case Minus: return n1 - n2;
+    case Multi: return n1 * n2;
+    case Divid: return n1 / n2;
     default: return NaN;
   }
 
@@ -43,15 +68,15 @@ export function calc(op: string, s1: string, s2: string) {
 
 /**
  * 文字を演算子か判定する
- * @param s 文字
+ * @param str 文字
  * @returns 演算子ならtrue
  */
-export function isOP(s: string) {
-  switch (s) {
-    case "+":
-    case "-":
-    case "x":
-    case "÷":
+export function isOperator(str: string) {
+  switch (str) {
+    case Plus:
+    case Minus:
+    case Multi:
+    case Divid:
       return true
     default:
       return false;

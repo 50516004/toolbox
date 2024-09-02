@@ -3,10 +3,10 @@ import { ReactNode } from "react";
 export default function Button(
   {
     children,
-    handler,
+    onClick: handler,
   }: {
     children: ReactNode;
-    handler: () => void;
+    onClick: () => void;
   }
 ) {
   return (
