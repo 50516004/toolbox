@@ -1,4 +1,4 @@
-import { Divid, Minus, Multi, Plus } from "./difinitions";
+import { Operator } from "./difinitions";
 
 /**
  * 入力配列から解を計算する
@@ -36,12 +36,12 @@ export function resolveAll(input: string[]) {
  */
 export function findOperator(input: string[]) {
   // 掛け算割り算を検索
-  const posMulDiv = input.findIndex(s => s == Multi || s == Divid);
+  const posMulDiv = input.findIndex(s => s == Operator.Multi || s == Operator.Divid);
   if(posMulDiv != -1) { 
     return posMulDiv;
   }
   // 足し算引き算を検索
-  const posAddSub = input.findIndex(s => s == Plus || s == Minus);
+  const posAddSub = input.findIndex(s => s == Operator.Plus || s == Operator.Minus);
   return posAddSub;
 }
 
@@ -57,10 +57,10 @@ export function resolve(op: string, s1: string, s2: string) {
   const n2 = parseFloat(s2);
 
   switch (op) {
-    case Plus: return n1 + n2;
-    case Minus: return n1 - n2;
-    case Multi: return n1 * n2;
-    case Divid: return n1 / n2;
+    case Operator.Plus: return n1 + n2;
+    case Operator.Minus: return n1 - n2;
+    case Operator.Multi: return n1 * n2;
+    case Operator.Divid: return n1 / n2;
     default: return NaN;
   }
 
@@ -73,10 +73,10 @@ export function resolve(op: string, s1: string, s2: string) {
  */
 export function isOperator(str: string) {
   switch (str) {
-    case Plus:
-    case Minus:
-    case Multi:
-    case Divid:
+    case Operator.Plus:
+    case Operator.Minus:
+    case Operator.Multi:
+    case Operator.Divid:
       return true
     default:
       return false;

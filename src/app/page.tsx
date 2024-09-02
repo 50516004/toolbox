@@ -1,6 +1,6 @@
 'use client'
 import { isOperator, resolveAll } from "@/lib/calculator";
-import { Divid, Minus, Multi, Plus, Point } from "@/lib/difinitions";
+import { Operator, Point } from "@/lib/difinitions";
 import Button from "@/ui/Button";
 import { useState } from "react";
 
@@ -55,7 +55,9 @@ export default function Page() {
   // 数字ボタン
   function btnNumber(num: number) {
     return (
-      <Button onClick={() => addNumber(num)}>{num}</Button>
+      <Button onClick={() => addNumber(num)}>
+        {num}
+      </Button>
     );
   }
 
@@ -66,16 +68,16 @@ export default function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
-      <div className="bg-white p-5 flex flex-col gap-2 w-50 rounded-md">
+      <div className="bg-white p-5 flex flex-col gap-2 w-100 rounded-md">
         <div className="h-10 border border-gray-500 flex justify-end p-2">
           {state + " = " + answer}
         </div>
         <div className="flex flex-wrap flex-col gap-2">
           <div className="flex gap-2">
-            <Button onClick={() => addOperator(Plus)}>&#0043;</Button>
-            <Button onClick={() => addOperator(Minus)}>&#8722;</Button>
-            <Button onClick={() => addOperator(Multi)}>&#0215;</Button>
-            <Button onClick={() => addOperator(Divid)}>&#0247;</Button>
+            <Button onClick={() => addOperator(Operator.Plus)}>&#0043;</Button>
+            <Button onClick={() => addOperator(Operator.Minus)}>&#8722;</Button>
+            <Button onClick={() => addOperator(Operator.Multi)}>&#0215;</Button>
+            <Button onClick={() => addOperator(Operator.Divid)}>&#0247;</Button>
           </div>
           <div className="flex gap-2">
             {btnNumber(7)}

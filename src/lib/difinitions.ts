@@ -1,5 +1,8 @@
-export const Plus = "+";
-export const Minus = "-";
-export const Multi = "×";
-export const Divid = "÷";
 export const Point = ".";
+
+export enum Operator {
+  Plus = "+",
+  Minus = "-",
+  Multi = "×",
+  Divid = "÷",
+}
