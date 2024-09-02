@@ -9,6 +9,8 @@ export default function Page() {
   const [input, setInput] = useState(["0"]);
   // 入力配列のコピー
   const draft = [...input];
+  // 入力末尾
+  const tail = draft.at(-1);
 
   // 入力配列のクリア
   function clear() {
@@ -17,7 +19,6 @@ export default function Page() {
 
   // 演算子を追加
   function addOperator(op: string) {
-    const tail = draft.at(-1);
     if (tail == undefined) {
       draft.push(op);
     } else if (isOperator(tail)) {
@@ -30,7 +31,6 @@ export default function Page() {
 
   // 数字を追加
   function addNumber(num: number) {
-    const tail = draft.at(-1);
     const numStr = num.toString();
     if (tail == undefined || isOperator(tail)) {
       draft.push(numStr);
@@ -44,7 +44,6 @@ export default function Page() {
 
   // 小数点を追加
   function addPoint() {
-    const tail = draft.at(-1);
     if (tail == undefined || isOperator(tail) || tail.includes(Point)) {
       return;
     } else {
