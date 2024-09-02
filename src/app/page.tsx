@@ -67,9 +67,9 @@ export default function Page() {
   const answer = resolveAll(input);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-start p-24">
-      <div className="bg-white p-5 flex flex-col gap-2 w-100 rounded-md">
-        <div className="h-10 border border-gray-500 flex justify-end p-2">
+    <main className="flex min-h-screen flex-col items-center justify-start p-10 text-xl">
+      <div className="bg-white p-5 flex flex-col gap-2 w-full max-w-96 rounded-md">
+        <div className="border border-gray-500 flex justify-end p-2">
           {state + " = " + answer}
         </div>
         <div className="flex flex-wrap flex-col gap-2">
