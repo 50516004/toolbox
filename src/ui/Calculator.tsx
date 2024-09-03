@@ -71,7 +71,7 @@ export default function Calculator() {
 
   return (
     <div className="bg-white p-5 flex flex-col gap-2 w-full max-w-96 rounded-md text-2xl">
-      <div className="border border-gray-500 flex justify-end">
+      <div className="border border-gray-500 flex justify-end p-2">
         {state + " = " + answer}
       </div>
       <div className="flex flex-wrap flex-col gap-2">
