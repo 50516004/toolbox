@@ -14,12 +14,12 @@ export function resolveAll(input: string[]) {
   while (pos != -1) {
     // 演算子と前後の数字から解を算出
     const op = draft[pos];
-    const s1 = draft[pos-1];
-    const s2 = draft[pos+1];
+    const s1 = draft[pos - 1];
+    const s2 = draft[pos + 1];
     const reduced = resolve(op, s1, s2);
 
     // 演算子と数字2つを解に置き換える
-    draft.splice(pos-1, 3, reduced.toString());
+    draft.splice(pos - 1, 3, reduced.toString());
 
     // 次の演算子の位置を探す
     pos = findOperator(draft);
@@ -36,12 +36,16 @@ export function resolveAll(input: string[]) {
  */
 export function findOperator(input: string[]) {
   // 掛け算割り算を検索
-  const posMulDiv = input.findIndex(s => s == Operator.Multi || s == Operator.Divid);
-  if(posMulDiv != -1) { 
+  const posMulDiv = input.findIndex(s =>
+    s == Operator.Multi || s == Operator.Divid
+  );
+  if (posMulDiv != -1) {
     return posMulDiv;
   }
   // 足し算引き算を検索
-  const posAddSub = input.findIndex(s => s == Operator.Plus || s == Operator.Minus);
+  const posAddSub = input.findIndex(s =>
+    s == Operator.Plus || s == Operator.Minus
+  );
   return posAddSub;
 }
 
