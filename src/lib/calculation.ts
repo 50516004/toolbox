@@ -1,4 +1,4 @@
-import { Operator } from "./difinitions";
+import { Operator } from "./definitions";
 
 /**
  * 入力配列から解を計算する
