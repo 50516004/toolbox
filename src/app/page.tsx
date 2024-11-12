@@ -1,9 +1,8 @@
-import Calculator from "@/ui/Calculator";
+import { redirect } from "next/navigation";
 
 export default function Page() {
+  redirect("/toolbox");
   return (
-    <main className="min-h-screen flex flex-col items-center p-10">
-      <Calculator />
-    </main>
+    <></>
   );
 }

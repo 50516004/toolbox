@@ -1,8 +1,8 @@
 'use client'
 import { isOperator, resolveAll } from "@/lib/calculation";
 import { Operator, Point } from "@/lib/definitions";
-import Button from "@/ui/Button";
 import { useState } from "react";
+import Button from "./Button";
 
 // 入力配列初期状態
 const initInput = ["0"];

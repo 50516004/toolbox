@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "電卓",
-  description: "Reactで作成した電卓",
+  title: "ToolBox",
+  description: "ブラウザで使えるツール色々",
 };
 
 export default function RootLayout({
