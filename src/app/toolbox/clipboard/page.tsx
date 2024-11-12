@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="min-h-full m-4 bg-gray-50 rounded-md">
+    <main className="m-4 bg-gray-50 rounded-md">
       <ClipBoard />
     </main>
   );

@@ -1,14 +1,36 @@
 'use client'
 
-import { useState } from "react";
+import { Consumer } from "@/lib/definitions";
+import { useImmer } from "use-immer";
 
 export default function ClipBoard() {
+  const [textList, upTextList] = useImmer([""]);
+
   return (
     <div className="p-5 flex flex-col gap-2">
-      <Clip></Clip>
+      {textList.map((text, i) => (
+        <Clip
+          key={i}
+          text={text}
+          setText={(s) => {
+            upTextList(draft => {
+              draft[i] = s;
+            });
+          }}
+          removeText={() => {
+            upTextList(draft => {
+              draft.splice(i, 1);
+            })
+          }}
+        />
+      ))}
       <div>
         <button
-          onClick={() => alert()}
+          onClick={() => {
+            upTextList(draft => {
+              draft.push("");
+            })
+          }}
           className="btn btn-primary btn-outline btn-sm"
         >追加</button>
       </div>
@@ -16,8 +38,21 @@ export default function ClipBoard() {
   );
 }
 
-export function Clip() {
-  const [text, setText] = useState('');
+export function Clip(
+  {
+    text,
+    setText,
+    removeText,
+  }: {
+    text: string;
+    setText: Consumer<string>;
+    removeText: () => void;
+  }
+) {
+
+  function copy() {
+    navigator.clipboard.writeText(text);
+  }
 
   return (
     <div className="flex gap-2">
@@ -28,11 +63,11 @@ export function Clip() {
         className="input input-bordered input-sm focus:outline-offset-0 focus:outline-sky-300"
       />
       <button
-        onClick={() => alert()}
+        onClick={() => copy()}
         className="btn btn-primary btn-sm"
       >コピー</button>
       <button
-        onClick={() => alert()}
+        onClick={removeText}
         className="btn btn-primary btn-sm"
       >削除</button>
     </div>

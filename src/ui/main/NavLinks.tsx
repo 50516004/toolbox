@@ -20,7 +20,7 @@ const links = [
     href: '/toolbox/calculator',
     icon: DocumentDuplicateIcon,
   }, {
-    name: 'CSV',
+    name: 'クリップボード',
     href: '/toolbox/clipboard',
     icon: UserGroupIcon
   },
