@@ -7,7 +7,7 @@ export default function ClipBoard() {
   const [textList, upTextList] = useImmer([""]);
 
   return (
-    <div className="p-5 flex flex-col gap-2">
+    <div className="p-5 flex flex-col gap-2 w-full max-w-2xl">
       {textList.map((text, i) => (
         <Clip
           key={i}
@@ -60,7 +60,7 @@ export function Clip(
         type="text"
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="input input-bordered input-sm focus:outline-offset-0 focus:outline-sky-300"
+        className="flex-grow input input-bordered input-sm focus:outline-offset-0 focus:outline-sky-300"
       />
       <button
         onClick={() => copy()}

@@ -70,34 +70,36 @@ export default function Calculator() {
   }
 
   return (
-    <div className="bg-white p-5 flex flex-col gap-2 w-full max-w-96 rounded-md text-2xl">
-      <div className="border border-gray-500 flex justify-end p-2">
+    <div className="flex flex-col gap-2 w-full rounded-md text-2xl">
+      <div className="border border-gray-500 flex justify-center p-2">
         {state + " = " + answer}
       </div>
-      <div className="flex flex-wrap flex-col gap-2">
-        <div className="flex gap-2">
-          <Button onClick={() => addOperator(Operator.Plus)}>&#0043;</Button>
-          <Button onClick={() => addOperator(Operator.Minus)}>&#8722;</Button>
-          <Button onClick={() => addOperator(Operator.Multi)}>&#0215;</Button>
-          <Button onClick={() => addOperator(Operator.Divid)}>&#0247;</Button>
-        </div>
-        <div className="flex gap-2">
-          {ButtonNumber(7)}
-          {ButtonNumber(8)}
-          {ButtonNumber(9)}
-          {ButtonNumber(0)}
-        </div>
-        <div className="flex gap-2">
-          {ButtonNumber(4)}
-          {ButtonNumber(5)}
-          {ButtonNumber(6)}
-          <Button onClick={addPoint}>{"."}</Button>
-        </div>
-        <div className="flex gap-2">
-          {ButtonNumber(1)}
-          {ButtonNumber(2)}
-          {ButtonNumber(3)}
-          <Button onClick={clear}>{"C"}</Button>
+      <div className="flex justify-center">
+        <div className="flex flex-wrap flex-col gap-2 w-96">
+          <div className="flex gap-2">
+            <Button onClick={() => addOperator(Operator.Plus)}>&#0043;</Button>
+            <Button onClick={() => addOperator(Operator.Minus)}>&#8722;</Button>
+            <Button onClick={() => addOperator(Operator.Multi)}>&#0215;</Button>
+            <Button onClick={() => addOperator(Operator.Divid)}>&#0247;</Button>
+          </div>
+          <div className="flex gap-2">
+            {ButtonNumber(7)}
+            {ButtonNumber(8)}
+            {ButtonNumber(9)}
+            {ButtonNumber(0)}
+          </div>
+          <div className="flex gap-2">
+            {ButtonNumber(4)}
+            {ButtonNumber(5)}
+            {ButtonNumber(6)}
+            <Button onClick={addPoint}>{"."}</Button>
+          </div>
+          <div className="flex gap-2">
+            {ButtonNumber(1)}
+            {ButtonNumber(2)}
+            {ButtonNumber(3)}
+            <Button onClick={clear}>{"C"}</Button>
+          </div>
         </div>
       </div>
     </div>

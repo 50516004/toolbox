@@ -23,6 +23,10 @@ const links = [
     name: 'クリップボード',
     href: '/toolbox/clipboard',
     icon: UserGroupIcon
+  }, {
+    name: '乱数生成',
+    href: '/toolbox/random',
+    icon: UserGroupIcon
   },
 ];
 

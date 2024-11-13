@@ -3,12 +3,13 @@ import { useEffect, useState } from "react";
 
 export default function Clock() {
 
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(0);
 
   useEffect(() => {
+    setNow(Date.now());
     const intervalId = setInterval(() => {
       setNow(Date.now());
-    }, 1000);
+    }, 500);
 
     // コンポーネントがアンマウントされたときにタイマーをクリア
     return () => clearInterval(intervalId);
@@ -16,7 +17,7 @@ export default function Clock() {
 
   return (
     <div className="text-5xl">
-      {formatDate(now)}
+      {now ? formatDate(now) : "Setup..."}
     </div>
   );
 

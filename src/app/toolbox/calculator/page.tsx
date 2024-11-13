@@ -8,8 +8,10 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="min-h-screen flex flex-col items-center p-10">
-      <Calculator />
+    <main className="m-4 rounded-md p-4 bg-white">
+      <div>
+        <Calculator />
+      </div>
     </main>
   );
 }
