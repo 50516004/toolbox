@@ -54,9 +54,8 @@ export default function Calculator() {
   function addPoint() {
     if (tail == undefined || isOperator(tail) || tail.includes(Point)) {
       return;
-    } else {
-      draft.splice(-1, 1, tail + Point);
     }
+    draft.splice(-1, 1, tail + Point);
     setInput(draft);
   }
 
